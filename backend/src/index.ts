@@ -34,6 +34,74 @@ const resolvers = {
     deleteComment(_, args) {
       db.comments = db.comments.filter((comment) => comment.id !== args.id)
       return db.comments;
+    },
+    addComment(_, args) {
+      let comment = {
+        ...args.comment,
+        id: String(db.comments.length + 1),
+      }
+      db.comments.push(comment)
+      return comment;
+    },
+    editComment(_, args) {
+      db.comments = db.comments.map((comment) => {
+        if (comment.id === args.id) {
+          return {
+            ...comment,
+            ...args.edit
+          }
+        }
+        return comment;
+      })
+      return db.comments.find((comment) => comment.id === args.id)
+    },
+    deleteUser(_, args) {
+      db.users = db.users.filter((user) => user.id !== args.id)
+      return db.users;
+    },
+    createUser(_, args) {
+      let user = {
+        ...args.user,
+        id: String(db.users.length + 1),
+      }
+      db.users.push(user)
+      return user;
+    },
+    editUser(_, args) {
+      db.users = db.users.map((user) => {
+        if (user.id === args.id) {
+          return {
+            ...user,
+            ...args.edit
+          }
+        }
+        return user;
+      })
+      return db.users.find((user) => user.id === args.id)
+    },
+    deletePatient(_, args) {
+      db.patients = db.patients.filter((patient) => patient.id !== args.id)
+      return db.patients;
+    },
+    createPatient(_, args) {
+      let patient = {
+        ...args.patient,
+        id: String(db.patients.length + 1),
+      }
+      db.patients.push(patient)
+      return patient;
+    },
+    editPatient(_, args) {
+      db.patients = db.patients.map((patient) => {
+        if (patient.id === args.id) {
+          return {
+            ...patient,
+            ...args.edit
+          }
+        }
+        return patient;
+      })
+      return db.patients.find((patient) => patient.id === args.id)
     }
   }
 };
