@@ -45,4 +45,4 @@ let patients = [
   }
 ];
 
-export default { comments, users };
+export default { comments, users, patients };
