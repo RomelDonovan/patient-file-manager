@@ -29,6 +29,12 @@ const resolvers = {
     comments(parent) {
       return db.comments.filter((comment) => comment.user_id === parent.id)
     }
+  },
+  Mutation: {
+    deleteComment(_, args) {
+      db.comments = db.comments.filter((comment) => comment.id !== args.id)
+      return db.comments;
+    }
   }
 };
 

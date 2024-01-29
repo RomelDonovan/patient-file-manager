@@ -24,4 +24,8 @@ export const typeDefs = `#graphql
     users: [User]
     user(id: ID!): User
   }
+
+  type Mutation {
+    deleteComment(id: ID!): [Comment]
+  }
 `;
