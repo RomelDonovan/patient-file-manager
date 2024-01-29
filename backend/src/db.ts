@@ -32,6 +32,17 @@ let users = [
     password: 'password',
     role: 'Patient'
   }
-]
+];
+
+let patients = [
+  {
+    id: "1",
+    name: 'Bob Doe',
+  },
+  {
+    id: "2",
+    name: 'Sally Doe',
+  }
+];
 
 export default { comments, users };
