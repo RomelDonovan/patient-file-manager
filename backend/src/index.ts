@@ -6,44 +6,30 @@ const app = initializeApp({
 
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
-
-// A schema is a collection of type definitions (hence "typeDefs")
-// that together define the "shape" of queries that are executed against
-// your data.
-const typeDefs = `#graphql
-  # Comments in GraphQL strings (such as this one) start with the hash (#) symbol.
-
-  # This "Book" type defines the queryable fields for every book in our data source.
-  type Book {
-    title: String
-    author: String
-  }
-
-  # The "Query" type is special: it lists all of the available queries that
-  # clients can execute, along with the return type for each. In this
-  # case, the "books" query returns an array of zero or more Books (defined above).
-  type Query {
-    books: [Book]
-  }
-`;
-
-const books = [
-  {
-    title: 'The Awakening',
-    author: 'Kate Chopin',
-  },
-  {
-    title: 'City of Glass',
-    author: 'Paul Auster',
-  },
-];
+import { typeDefs } from './schema.js';
+import db from './db.js';
 
 // Resolvers define how to fetch the types defined in your schema.
-// This resolver retrieves books from the "books" array above.
 const resolvers = {
   Query: {
-    books: () => books,
+    comments() {
+      return db.comments;
+    },
+    comment(_, args) {
+      return db.comments.find((comment) => comment.id === args.id)
+    },
+    users() {
+      return db.users;
+    },
+    user(_, args) {
+      return db.users.find((user) => user.id === args.id)
+    }
   },
+  User: {
+    comments(parent) {
+      return db.comments.filter((comment) => comment.user_id === parent.id)
+    }
+  }
 };
 
 // The ApolloServer constructor requires two parameters: your schema
