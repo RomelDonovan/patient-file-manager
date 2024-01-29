@@ -8,7 +8,7 @@ let comments = [
   {
     id: "2",
     comment: 'This is another comment',
-    user_id: "1",
+    user_id: "2",
   },
   {
     id: "3",
@@ -25,6 +25,13 @@ let users = [
     password: 'password',
     role: 'Doctor'
   },
+  {
+    id: "2",
+    name: 'Jane Doe',
+    email: 'jane@jane.com',
+    password: 'password',
+    role: 'Patient'
+  }
 ]
 
 export default { comments, users };
