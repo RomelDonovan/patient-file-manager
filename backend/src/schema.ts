@@ -27,6 +27,7 @@ export const typeDefs = `#graphql
   type File {
     id: ID!
     name: String!
+    file: String!
     patient: [Patient!]
   }
 
@@ -51,6 +52,9 @@ export const typeDefs = `#graphql
     createPatient(patient: CreatePatientInput!): Patient
     deletePatient(id: ID!): [Patient]
     editPatient(id: ID!, edit: EditPatientInput!): Patient
+    createFile(file: CreateFileInput!): File
+    deleteFile(id: ID!): [File]
+    editFile(id: ID!, edit: EditFileInput!): File
   }
   
   input AddCommentInput {
@@ -81,5 +85,15 @@ export const typeDefs = `#graphql
 
   input EditPatientInput {
     name: String
+  }
+
+  input CreateFileInput {
+    name: String!
+    file: [String!]
+  }
+
+  input EditFileInput {
+    name: String
+    file: [String]
   }
 `;
