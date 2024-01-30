@@ -21,6 +21,13 @@ export const typeDefs = `#graphql
   type Patient {
     id: ID!
     name: String!
+    file: [File!]
+  }
+
+  type File {
+    id: ID!
+    name: String!
+    patient: [Patient!]
   }
 
   type Query {
@@ -30,6 +37,8 @@ export const typeDefs = `#graphql
     user(id: ID!): User
     patients: [Patient]
     patient(id: ID!): Patient
+    files: [File]
+    file(id: ID!): File
   }
 
   type Mutation {
