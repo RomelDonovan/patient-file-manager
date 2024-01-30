@@ -60,8 +60,51 @@ const resolvers = {
         .get();
       const user = userDoc.data();
       return user;
+    },
+    async patients() {
+      const patientsDoc = await admin
+        .firestore()
+        .collection('patients')
+        .get();
+      const patients = patientsDoc.docs.map((patient) => {
+        return {
+          id: patient.id,
+          ...patient.data(),
+        };
+      });
+      return patients;
+    },
+    async patient(_, args) {
+      const patientDoc = await admin
+        .firestore()
+        .doc(`patients/${args.id}`)
+        .get();
+      const patient = patientDoc.data();
+      return patient;
+    },
+    async files() {
+      const filesDoc = await admin
+        .firestore()
+        .collection('files')
+        .get();
+      const files = filesDoc.docs.map((file) => {
+        return {
+          id: file.id,
+          ...file.data(),
+        };
+      });
+      return files;
+    },
+    async file(_, args) {
+      const fileDoc = await admin
+        .firestore()
+        .doc(`files/${args.id}`)
+        .get();
+      const file = fileDoc.data();
+      return file;
     }
   },
+
   User: {
     async comments(parent) {
       const comments = await admin
@@ -72,6 +115,7 @@ const resolvers = {
       return comments.docs.map((comment) => comment.data());
     }
   },
+
   Mutation: {
     // Comments
     async deleteComment(_, args) {
