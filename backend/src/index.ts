@@ -1,7 +1,7 @@
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
-import { typeDefs } from '../db/schema.js';
-// import db from './db.js';
+import { typeDefs } from './schema.js';
+// import db from './seeds.js';
 
 import admin from 'firebase-admin';
 
@@ -199,6 +199,34 @@ const resolvers = {
         .get();
       const patient = patientDoc.data();
       return patient;
+    },
+
+    // Files
+    async deleteFile(_, args) {
+      await admin
+        .firestore()
+        .doc(`files/${args.id}`)
+        .delete();
+      return args.id;
+    },
+    async createFile(_, args) {
+      await admin
+        .firestore()
+        .collection('files')
+        .add(args.file);
+      return args.file;
+    },
+    async editFile(_, args) {
+      await admin
+        .firestore()
+        .doc(`files/${args.id}`)
+        .update(args.edit);
+      const fileDoc = await admin
+        .firestore()
+        .doc(`files/${args.id}`)
+        .get();
+      const file = fileDoc.data();
+      return file;
     }
   }
 };
