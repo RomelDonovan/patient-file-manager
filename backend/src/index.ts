@@ -1,6 +1,6 @@
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
-import { typeDefs } from './schema.js';
+import { typeDefs } from '../db/schema.js';
 // import db from './db.js';
 
 import admin from 'firebase-admin';
