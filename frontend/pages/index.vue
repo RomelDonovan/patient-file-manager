@@ -1,7 +1,8 @@
 <template>
   <div>
     <h1 class="title">Patient List</h1>
-    <Patients />
+    <PatientsList />
+    <AddPatient />
   </div>
 </template>
 
